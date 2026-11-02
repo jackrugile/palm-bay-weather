@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-11-02T19:08:09.556Z",
+  "run": null,
+  "sources": [
+    {
+      "id": "doh-brevard",
+      "name": "Florida DOH-Brevard",
+      "kind": "rss",
+      "url": "https://brevard.floridahealth.gov/feed/",
+      "ok": true,
+      "count": 10,
+      "error": null,
+      "ms": 725
+    },
+    {
+      "id": "fpl",
+      "name": "FPL county outages",
+      "kind": "json",
+      "url": "https://www.fplmaps.com/customer/outage/CountyOutages.json",
+      "ok": true,
+      "count": 2,
+      "error": null,
+      "ms": 195
+    },
+    {
+      "id": "gn-brevard-em",
+      "name": "Google News: Brevard Emergency Management",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=(%22Brevard%20County%20Emergency%20Management%22%20OR%20%22Brevard%20EOC%22%20OR%20%22Brevard%20County%22%20sandbags%20OR%20%22Brevard%20County%22%20shelter)%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 29,
+      "error": null,
+      "ms": 584
+    },
+    {
+      "id": "gn-brevard-flooding",
+      "name": "Google News: Brevard County flooding",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Brevard%20County%22%20flooding%20when%3A7d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 74,
+      "error": null,
+      "ms": 520
+    },
+    {
+      "id": "gn-florida-today",
+      "name": "Florida Today (via Google News)",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=site%3Afloridatoday.com%20(%22Palm%20Bay%22%20OR%20Brevard)%20(flood%20OR%20flooding%20OR%20rain)%20when%3A7d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 23,
+      "error": null,
+      "ms": 425
+    },
+    {
+      "id": "gn-fpl-brevard",
+      "name": "Google News: FPL outage Brevard",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=FPL%20outage%20Brevard%20when%3A7d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 0,
+      "error": null,
+      "ms": 323
+    },
+    {
+      "id": "gn-palm-bay-boil",
+      "name": "Google News: Palm Bay boil water notice",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Palm%20Bay%22%20%22boil%20water%22%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 4,
+      "error": null,
+      "ms": 375
+    },
+    {
+      "id": "gn-palm-bay-city",
+      "name": "Google News: City of Palm Bay notices",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22City%20of%20Palm%20Bay%22%20(boil%20OR%20%22water%20main%22%20OR%20%22water%20service%22%20OR%20closed%20OR%20shelter%20OR%20sandbag)%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 5,
+      "error": null,
+      "ms": 531
+    },
+    {
+      "id": "gn-palm-bay-flood",
+      "name": "Google News: Palm Bay flood",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Palm%20Bay%22%20flood%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 35,
+      "error": null,
+      "ms": 468
+    },
+    {
+      "id": "gn-palm-bay-roads",
+      "name": "Google News: Palm Bay road closures",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Palm%20Bay%22%20(road%20OR%20roads)%20(closed%20OR%20closure)%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 15,
+      "error": null,
+      "ms": 377
+    },
+    {
+      "id": "gn-palm-bay-water-main",
+      "name": "Google News: Palm Bay water main break",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Palm%20Bay%22%20%22water%20main%22%20when%3A14d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 3,
+      "error": null,
+      "ms": 431
+    },
+    {
+      "id": "gn-wesh",
+      "name": "WESH (via Google News)",
+      "kind": "rss",
+      "url": "https://news.google.com/rss/search?q=site%3Awesh.com%20(%22Palm%20Bay%22%20OR%20Brevard)%20when%3A7d&hl=en-US&gl=US&ceid=US:en",
+      "ok": true,
+      "count": 5,
+      "error": null,
+      "ms": 378
+    },
+    {
+      "id": "palm-bay-city",
+      "name": "City of Palm Bay news",
+      "kind": "rss",
+      "url": "https://www.palmbayfl.gov/Home/Components/RssFeeds/RssFeed/View?ctID=5",
+      "ok": true,
+      "count": 50,
+      "error": null,
+      "ms": 2419
+    },
+    {
+      "id": "spectrum-brevard",
+      "name": "Spectrum News 13 Brevard",
+      "kind": "rss",
+      "url": "https://mynews13.com/services/contentfeed.fl%7Corlando%7Cnews%7Cbrevard.landing.rss",
+      "ok": true,
+      "count": 4,
+      "error": null,
+      "ms": 170
+    },
+    {
+      "id": "wftv",
+      "name": "WFTV",
+      "kind": "rss",
+      "url": "https://www.wftv.com/arc/outboundfeeds/rss/?outputType=xml",
+      "ok": true,
+      "count": 3,
+      "error": null,
+      "ms": 269
+    },
+    {
+      "id": "wkmg",
+      "name": "WKMG News 6",
+      "kind": "rss",
+      "url": "https://www.clickorlando.com/arc/outboundfeeds/rss/?outputType=xml",
+      "ok": true,
+      "count": 1,
+      "error": null,
+      "ms": 213
+    }
+  ]
+}

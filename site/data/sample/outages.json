@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-11-02T19:08:09.556Z",
+  "provider": "Florida Power & Light",
+  "ok": true,
+  "error": null,
+  "sourceUpdated": "2026-11-02T19:04:54.000Z",
+  "counties": [
+    {
+      "county": "Brevard",
+      "out": 1932,
+      "served": 356950,
+      "percent": 0.5412522762291637
+    },
+    {
+      "county": "Indian River",
+      "out": 51,
+      "served": 104454,
+      "percent": 0.0488253202366592
+    }
+  ],
+  "links": {
+    "fplMap": "https://www.fplmaps.com/",
+    "powerOutageUs": "https://poweroutage.us/area/state/florida"
+  }
+}

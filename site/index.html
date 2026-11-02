@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Palm Bay Flood Dashboard · 32909</title>
+  <meta name="description" content="Live flood dashboard for Palm Bay, FL 32909: NWS alerts, rainfall, river gauges, outages, boil-water notices and local news." />
+  <meta name="theme-color" content="#0b1320" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌧</text></svg>" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.6.1/dist/chart.umd.min.js" integrity="sha384-Emf5ZVIUiarAdhkgtqK+5/Z5qIvM6QoVrS+qAVtfyZVuD5lIHrac0me485+Antp0" crossorigin="anonymous"></script>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div>
+        <h1>Palm Bay Flood Dashboard</h1>
+        <p class="subtitle">ZIP 32909 · Palm Bay, Florida</p>
+      </div>
+      <button type="button" id="refresh" class="btn">Refresh now</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="alerts" class="panel panel-alerts" aria-labelledby="alerts-title">
+      <h2 id="alerts-title" class="visually-hidden">Active NWS alerts</h2>
+      <div id="alerts-local" aria-live="polite"><p class="loading">Loading NWS alerts…</p></div>
+      <details id="alerts-other" class="other-alerts" hidden>
+        <summary></summary>
+        <ul></ul>
+      </details>
+      <div class="source-status">
+        <span class="status-label">Last updated</span>
+        <ul id="status-list" class="status-list"></ul>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="glance-title">
+      <h2 id="glance-title">At a glance</h2>
+      <div id="glance" class="glance-grid"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="rain-title">
+      <h2 id="rain-title">Rainfall</h2>
+      <div class="chart-grid">
+        <figure class="chart-card">
+          <figcaption>Past 7 days, hourly <span class="muted">· <span id="rain-history-source">radar estimate (IEM/MRMS)</span></span></figcaption>
+          <div class="chart-box"><canvas id="rain-history" aria-label="Hourly rainfall over the past 7 days"></canvas></div>
+        </figure>
+        <figure class="chart-card">
+          <figcaption>Next 7 days, projected <span class="muted">· Open-Meteo hourly, NWS forecast total</span></figcaption>
+          <div class="chart-box"><canvas id="rain-projection" aria-label="Projected rainfall for the next 7 days"></canvas></div>
+        </figure>
+      </div>
+      <div id="daily-rain" class="daily-rain"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="gauges-title">
+      <h2 id="gauges-title">Water levels</h2>
+      <p class="muted small">Last 7 days from USGS and NOAA gauges. Dashed lines are NWS flood stages, shown only where NWS defines them.</p>
+      <div id="gauges" class="gauge-grid"><p class="loading">Loading gauges…</p></div>
+    </section>
+
+    <section class="panel" aria-labelledby="outlook-title">
+      <h2 id="outlook-title">How long will this last?</h2>
+      <div class="outlook-grid">
+        <div>
+          <h3>NWS forecast <span id="forecast-updated" class="muted small"></span></h3>
+          <ol id="forecast" class="forecast-list"><li class="loading">Loading forecast…</li></ol>
+        </div>
+        <div>
+          <h3>NWS Melbourne forecast discussion <span id="afd-updated" class="muted small"></span></h3>
+          <div id="afd" class="afd"><p class="loading">Loading discussion…</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="utilities-title">
+      <h2 id="utilities-title">Utilities &amp; infrastructure</h2>
+      <p id="notices-note" class="muted small"></p>
+      <div id="utilities" class="utility-grid"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="news-title">
+      <h2 id="news-title">News</h2>
+      <div id="news-filters" class="chips" role="toolbar" aria-label="Filter news by tag"></div>
+      <ul id="news" class="news-list"></ul>
+      <button type="button" id="news-more" class="btn btn-quiet" hidden>Show more</button>
+    </section>
+
+    <section class="panel" aria-labelledby="map-title">
+      <h2 id="map-title">Map: radar, gauges &amp; ZIP 32909</h2>
+      <div id="map" class="map" role="region" aria-label="Map of Palm Bay with radar overlay"></div>
+      <details class="radar-loop">
+        <summary>Show NWS KMLB radar loop (≈1 MB)</summary>
+        <a href="https://radar.weather.gov/station/kmlb/standard" target="_blank" rel="noopener">
+          <img data-src="https://radar.weather.gov/ridge/standard/KMLB_loop.gif" alt="NWS Melbourne (KMLB) radar loop" width="600" height="550" />
+        </a>
+      </details>
+    </section>
+
+    <section class="panel" aria-labelledby="resources-title">
+      <h2 id="resources-title">Resources &amp; links</h2>
+      <div class="resource-grid">
+        <div>
+          <h3>Phone numbers</h3>
+          <ul class="link-list">
+            <li><strong>Emergency:</strong> <a href="tel:911">911</a></li>
+            <li><strong>Community info hotline (sandbags, shelters):</strong> <a href="tel:211">2-1-1</a></li>
+            <li><strong>Palm Bay Police non-emergency:</strong> <a href="tel:+13219523456">(321) 952-3456</a></li>
+            <li><strong>Palm Bay Utilities (water/sewer, boil notices):</strong> <a href="tel:+13219523420">(321) 952-3420</a></li>
+            <li><strong>Palm Bay Utilities after hours:</strong> <a href="tel:+13219523478">(321) 952-3478</a></li>
+            <li><strong>Brevard Emergency Management:</strong> <a href="tel:+13216376670">(321) 637-6670</a></li>
+            <li><strong>FPL outages:</strong> <a href="tel:+18004688243">1-800-4OUTAGE (468-8243)</a></li>
+            <li><strong>Florida info line (during disasters):</strong> <a href="tel:+18003423557">1-800-342-3557</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Official pages</h3>
+          <ul class="link-list">
+            <li><a href="https://www.brevardfl.gov/StormCenter" target="_blank" rel="noopener">Brevard Storm Center: sandbags, shelters, evacuations</a></li>
+            <li><a href="https://www.brevardfl.gov/EmergencyManagement/AlertSignup" target="_blank" rel="noopener">Sign up for AlertBrevard (incl. boil notices)</a></li>
+            <li><a href="https://www.palmbayfl.gov/" target="_blank" rel="noopener">City of Palm Bay</a></li>
+            <li><a href="https://www.palmbayfl.gov/government/city-departments-a-to-e/customer-service/contact-utilities-customer-service" target="_blank" rel="noopener">Palm Bay Utilities customer care</a></li>
+            <li><a href="https://www.weather.gov/mlb/" target="_blank" rel="noopener">NWS Melbourne</a></li>
+            <li><a href="https://water.noaa.gov/wfo/mlb" target="_blank" rel="noopener">NWS river &amp; tide gauges (Melbourne area)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Roads &amp; power</h3>
+          <ul class="link-list">
+            <li><a href="https://fl511.com/map" target="_blank" rel="noopener">FL511 traffic &amp; road closure map</a></li>
+            <li><a href="https://www.fplmaps.com/" target="_blank" rel="noopener">FPL power outage map</a></li>
+            <li><a href="https://www.fpl.com/my-account/web-outage.html" target="_blank" rel="noopener">Report an FPL outage</a></li>
+            <li><a href="https://poweroutage.us/area/state/florida" target="_blank" rel="noopener">PowerOutage.us: Florida</a></li>
+            <li><a href="https://brevard.floridahealth.gov/" target="_blank" rel="noopener">Florida DOH-Brevard health advisories</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>Live data refreshes in your browser every 5 minutes. News, notices and outages are collected by a GitHub Action about every 15 minutes.
+      Sources: NWS / weather.gov, NOAA NWPS, USGS, Open-Meteo, Iowa Environmental Mesonet, FPL, City of Palm Bay, DOH-Brevard, Google News and local outlets.</p>
+    <p><strong>Not an official source.</strong> In an emergency call 911 and follow instructions from local officials.
+      <a href="https://github.com/jackrugile/palm-bay-weather" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+  </footer>
+</body>
+</html>
