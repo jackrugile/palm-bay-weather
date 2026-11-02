@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+
+# Written by scripts/collect.mjs during CI; the page falls back to site/data/sample/ when these are missing.
+site/data/*.json
